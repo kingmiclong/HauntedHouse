@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rolling Dice Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .dice {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+      background-color: white;
+    }
+
+    .players-container {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+      max-width: 1200px; 
+      flex-wrap: wrap;
+    }
+
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .dice span {
+      font-size: 24px;
+    }
+
+    button.roll-dice-button {
+      font-size: 14px;
+      padding: 5px 10px;
+      margin-top: 10px;
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rolling Dice</h1>
+    <div class="players-container">
+      <div class="player">
+        <h2>Player 1</h2>
+        <div class="dice-container">
+          <div id="dice1-1" class="dice">-</div>
+          <div id="dice1-2" class="dice">-</div>
+        </div>
+        <button id="rollDice1" class="roll-dice-button">Roll Dice</button>
+      </div>
+
+      <div class="player">
+        <h2>Player 2</h2>
+        <div class="dice-container">
+          <div id="dice2-1" class="dice">-</div>
+          <div id="dice2-2" class="dice">-</div>
+        </div>
+        <button id="rollDice2" class="roll-dice-button">Roll Dice</button>
+      </div>
+
+      <div class="player">
+        <h2>Player 3</h2>
+        <div class="dice-container">
+          <div id="dice3-1" class="dice">-</div>
+          <div id="dice3-2" class="dice">-</div>
+        </div>
+        <button id="rollDice3" class="roll-dice-button">Roll Dice</button>
+      </div>
+
+      <div class="player">
+        <h2>Player 4</h2>
+        <div class="dice-container">
+          <div id="dice4-1" class="dice">-</div>
+          <div id="dice4-2" class="dice">-</div>
+        </div>
+        <button id="rollDice4" class="roll-dice-button">Roll Dice</button>
+      </div>
+    </div>
+    
+    <div class="buttons-container">
+      <button id="goToMonopoly">Game Path</button>
+      <button id="storywritting">Story</button>
+      <button id="word">Word</button>
+      <button id="goBack">Go Back</button>
+      <button id="resetDice">Reset Dice</button>
+    </div>
+  </div>
+
+  <script>
+    function rollDice() {
+      return Math.floor(Math.random() * 6) + 1;
+    }
+
+    function rollDiceForPlayer(playerNumber) {
+      const dice1 = rollDice();
+      const dice2 = rollDice();
+      document.getElementById(`dice${playerNumber}-1`).textContent = dice1;
+      document.getElementById(`dice${playerNumber}-2`).textContent = dice2;
+      localStorage.setItem(`player${playerNumber}-dice1`, dice1);
+      localStorage.setItem(`player${playerNumber}-dice2`, dice2);
+    }
+
+    function loadDiceValues() {
+      for (let playerNumber = 1; playerNumber <= 4; playerNumber++) {
+        const dice1 = localStorage.getItem(`player${playerNumber}-dice1`);
+        const dice2 = localStorage.getItem(`player${playerNumber}-dice2`);
+        if (dice1 && dice2) {
+          document.getElementById(`dice${playerNumber}-1`).textContent = dice1;
+          document.getElementById(`dice${playerNumber}-2`).textContent = dice2;
+        }
+      }
+    }
+
+    document.querySelector("#rollDice1").addEventListener("click", () => {
+      rollDiceForPlayer(1);
+    });
+
+    document.querySelector("#rollDice2").addEventListener("click", () => {
+      rollDiceForPlayer(2);
+    });
+
+    document.querySelector("#rollDice3").addEventListener("click", () => {
+      rollDiceForPlayer(3);
+    });
+
+    document.querySelector("#rollDice4").addEventListener("click", () => {
+      rollDiceForPlayer(4);
+    });
+
+    document.querySelector("#goToMonopoly").addEventListener("click", () => {
+      location.href = "rectangular_monopoly.html";
+    });
+    
+    document.querySelector("#storywritting").addEventListener("click", () => {
+      location.href = "new_page.html";
+    });
+
+    document.querySelector("#goBack").addEventListener("click", () => {
+      location.href = "index.html";
+    });
+
+    document.querySelector("#word").addEventListener("click", () => {
+    location.href = "thousandresults.html";
+    });
+    function resetDiceValues() {
+      for (let playerNumber = 1; playerNumber <= 4; playerNumber++) {
+        localStorage.removeItem(`player${playerNumber}-dice1`);
+        localStorage.removeItem(`player${playerNumber}-dice2`);
+        document.getElementById(`dice${playerNumber}-1`).textContent = '-';
+        document.getElementById(`dice${playerNumber}-2`).textContent = '-';
+      }
+    }
+
+    document.querySelector("#resetDice").addEventListener("click", () => {
+      resetDiceValues();
+    });
+
+    loadDiceValues();
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thousand Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    button {
+      margin-bottom: 10px;
+    }
+
+    #uniqueWords {
+      position: relative;
+      bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="uniqueWords"></div>
+  <button id="generateUniqueWords1">Player 1 Generate Unique Words</button>
+  <button id="generateUniqueWords2">Player 2 Generate Unique Words</button>
+  <button id="generateUniqueWords3">Player 3 Generate Unique Words</button>
+  <button id="generateUniqueWords4">Player 4 Generate Unique Words</button>
+
+  
+  <button id="rollingDice">Rolling Dice</button>
+  <button id="gamePath">Game Path</button>
+  <button id="story">Story</button>
+  <button id="goBack">Go Back</button>
+  <button id="reset">Reset</button>
+
+  <p>The bottom generator is not for the assignment, but I get it to work with a little bit of grammar complex,</p>
+  <div id="result"></div>
+  <button id="generateComplex">Generate Complex Sentence</button>
+
+  <div id="result"></div>
+
+  <script>
+    function getRandomElement(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    const wordsPlayer1 = ["Lock-Picking", "Steal", "Burglarize", "Hijack", "Shadows", "Creaking", "Fire burning", "Moaning", "Howling", "Dripping", "Unsettling", "A cute watermelon"];
+    const wordsPlayer2 = ["Investigation", "Analysis", "Interview", "Tracing", "Inquiry", "Examination", "Observation", "Broken glass", "light up a candle", "Wind Blow", "Dark", "Freeze air", "Shadows", "Creaking", "Moaning", "SpikeBall", "Howling", "Dripping", "Unsettling"];
+    const wordsPlayer3 = ["Divination", "Energy", "Palm reading", "Paranormal", "Mind reading", "Sixth sense", "flute", "Looking around", "Wind Blow", "Wood Fell","Dark", "Freeze air", "Shadows", "Creaking", "Moaning", "Howling","Hammer", "Dripping", "Unsettling"];
+    const wordsPlayer4 = ["Surprising", "Exhilarating", "Investigative", "Explorer", "Brave", "Curious", "Resourceful", "searching", "Wind Blow","Wood Fell", "Dark", "Freeze air", "Shadows", "Creaking", "Moaning", "Howling", "Dripping", "Unsettling"];
+    
+    function generateUniqueWords(words) {
+      const wordSet = new Set();
+
+      while (wordSet.size < 4) {
+          wordSet.add(getRandomElement(words));
+      }
+
+      const specialEventText = "Curren place is haunted! Everyone take off one stamina";
+      const resultText = Array.from(wordSet).join(", ");
+      const chance = Math.random();
+
+      return chance <= 0.10 ? `${specialEventText} ${resultText}` : resultText;
+    }
+
+    function generateComplexSentence() {
+      const adjectives = ["quick", "lazy", "happy", "sad", "angry", "sleepy", "noisy", "quiet"];
+      const nouns = ["cat", "dog", "rabbit", "elephant", "lion", "tiger", "bear", "wolf"];
+      const verbs = ["jumps", "runs", "sleeps", "eats", "drinks", "sits", "stands", "swims"];
+      const prepositions = ["over", "under", "beside", "near", "on", "in", "around", "through"];
+
+      const adjective1 = getRandomElement(adjectives);
+      const adjective2 = getRandomElement(adjectives);
+      const noun1 = getRandomElement(nouns);
+      const noun2 = getRandomElement(nouns.filter(noun => noun !== noun1));
+      const verb = getRandomElement(verbs);
+      const preposition = getRandomElement(prepositions);
+
+      return `The ${adjective1} ${noun1} ${verb} the ${adjective2} ${noun2} ${preposition} the tree.`;
+    }
+
+    document.getElementById("generateUniqueWords1").addEventListener("click", () => {
+    const uniqueWords = document.getElementById("uniqueWords");
+    uniqueWords.innerText = "Player 1: " + generateUniqueWords(wordsPlayer1);
+    });
+
+    document.getElementById("generateUniqueWords2").addEventListener("click", () => {
+    const uniqueWords = document.getElementById("uniqueWords");
+    uniqueWords.innerText = "Player 2: " + generateUniqueWords(wordsPlayer2);
+    });
+
+    document.getElementById("generateUniqueWords3").addEventListener("click", () => {
+    const uniqueWords = document.getElementById("uniqueWords");
+    uniqueWords.innerText = "Player 3: " + generateUniqueWords(wordsPlayer3);
+    });
+
+    document.getElementById("generateUniqueWords4").addEventListener("click", () => {
+    const uniqueWords = document.getElementById("uniqueWords");
+    uniqueWords.innerText = "Player 4: " + generateUniqueWords(wordsPlayer4);
+    });
+
+    document.getElementById("generateComplex").addEventListener("click", () => {
+    const result = document.getElementById("result");
+    result.innerText = generateComplexSentence();
+    });
+
+        document.getElementById("goBack").addEventListener("click", () => {
+    window.history.back();
+    });
+
+    document.getElementById("rollingDice").addEventListener("click", () => {
+    location.href = 'rolling_dice.html';
+    });
+
+    document.getElementById("gamePath").addEventListener("click", () => {
+    location.href = 'rectangular_monopoly.html';
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+    // Assuming you have 4 input boxes with the following ids
+    const inputIds = ["input1", "input2", "input3", "input4"];
+
+
+    inputIds.forEach(id => {
+        localStorage.removeItem(id);
+        const inputElement = document.getElementById(id);
+        if (inputElement) {
+        inputElement.value = "";
+        }
+    });
+    location.reload();
+    });
+    
+    document.getElementById("story").addEventListener("click", () => {
+        location.href = 'new_page.html';
+    });
+
+    </script>
+    </body>
+</html>

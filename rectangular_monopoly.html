@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rectangular Monopoly</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 50px;
+      width: 900px;
+      height: 450px;
+    }
+
+    .cell-wrapper {
+      height: 50px;
+    }
+
+    .cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border: 1px solid black;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cell-input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .player {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+    }
+
+    .player1 {
+      background-color: blue;
+      top: 5px;
+      left: 5px;
+    }
+
+    .player2 {
+      background-color: red;
+      top: 5px;
+      right: 5px;
+    }
+
+    .player3 {
+      background-color: green;
+      bottom: 5px;
+      left: 5px;
+    }
+
+    .player4 {
+      background-color: yellow;
+      bottom: 5px;
+      right: 5px;
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      bottom: 20px;
+    }
+
+    .buttons-container button {
+      width: 200px;
+    }
+
+    .health-indicators {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .health-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div class="board">
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-1"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-2"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-3"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-4"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-5"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-6"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-7"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-8"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-9"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-10"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-11"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-12"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-13"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-14"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-15"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-16"></div>
+    </div>
+    <div class="cell-wrapper">
+      <input type="text" class="cell-input">
+      <div class="cell" id="cell-17"></div>
+    </div>
+  </div>
+</div>
+<div class="buttons-container">
+  <button id="rollDice1">Player 1 Move Forward</button>
+  <button id="rollDice2">Player 2 Move Forward</button>
+  <button id="rollDice3">Player 3 Move Forward</button>
+  <button id="rollDice4">Player 4 Move Forward</button>
+  <button id="goToRollingDice">Rolling Dice</button>
+  <button id="goToNewPage">Story</button>
+  <button id="word">Word</button>
+  <button id="goBack">Go Back</button>
+  <button id="resetGame">Reset Game</button>
+</div>
+    <div class="health-indicators">
+      <div class="health-indicator">
+        <div id="health-player1">Health: 10</div>
+        <button id="decreaseHealth1">Player 1: Decrease Health</button>
+      </div>
+      <div class="health-indicator">
+        <div id="health-player2">Health: 10</div>
+        <button id="decreaseHealth2">Player 2: Decrease Health</button>
+      </div>
+      <div class="health-indicator">
+        <div id="health-player3">Health: 10</div>
+        <button id="decreaseHealth3">Player 3: Decrease Health</button>
+      </div>
+      <div class="health-indicator">
+        <div id="health-player4">Health: 10</div>
+        <button id="decreaseHealth4">Player 4: Decrease Health</button>
+      </div>
+    </div>
+  <script>
+    const players = [
+      { id: 1, position: 1, element: document.createElement("div"), className: "player player1" },
+      { id: 2, position: 1, element: document.createElement("div"), className: "player player2" },
+      { id: 3, position: 1, element: document.createElement("div"), className: "player player3" },
+      { id: 4, position: 1, element: document.createElement("div"), className: "player player4" },
+    ];
+
+    function loadPlayerPositions() {
+      players.forEach(player => {
+        const position = parseInt(localStorage.getItem(`player${player.id}-position`));
+        if (!isNaN(position)) {
+          player.position = position;
+        }
+      });
+    }
+
+    function setPlayerHealth(playerId, health) {
+      localStorage.setItem(`health-player${playerId}`, health);
+      document.getElementById(`health-player${playerId}`).textContent = `Health: ${health}`;
+    }
+
+    function loadPlayerHealths() {
+      players.forEach(player => {
+        const health = parseInt(localStorage.getItem(`health-player${player.id}`));
+        if (!isNaN(health)) {
+          setPlayerHealth(player.id, health);
+        } else {
+          setPlayerHealth(player.id, 10);
+        }
+      });
+    }
+
+    function decreasePlayerHealth(playerId) {
+      const health = parseInt(localStorage.getItem(`health-player${playerId}`));
+      if (!isNaN(health) && health > 0) {
+        setPlayerHealth(playerId, health - 1);
+      }
+    }
+
+    loadPlayerHealths();
+
+    document.getElementById("decreaseHealth1").addEventListener("click", () => decreasePlayerHealth(1));
+    document.getElementById("decreaseHealth2").addEventListener("click", () => decreasePlayerHealth(2));
+    document.getElementById("decreaseHealth3").addEventListener("click", () => decreasePlayerHealth(3));
+    document.getElementById("decreaseHealth4").addEventListener("click", () => decreasePlayerHealth(4));
+
+    function savePlayerPositions() {
+      players.forEach(player => {
+        localStorage.setItem(`player${player.id}-position`, player.position);
+      });
+    }
+
+    players.forEach(player => {
+      player.element.classList.add(...player.className.split(" "));
+      document.getElementById(`cell-${player.position}`).appendChild(player.element);
+    });
+
+      function updatePlayerPositions() {
+    players.forEach(player => {
+      const oldPositionElement = document.getElementById(`cell-${player.position}`);
+      const playerElement = oldPositionElement.querySelector(`.player${player.id}`);
+      if (playerElement) {
+        oldPositionElement.removeChild(playerElement);
+      }
+      const newPositionElement = document.getElementById(`cell-${player.position}`);
+      newPositionElement.appendChild(player.element);
+    });
+    }
+    function resetPlayerHealth() {
+      players.forEach(player => {
+        setPlayerHealth(player.id, 10);
+      });
+    }
+    
+    function movePlayer(player, newPosition) {
+      const oldPositionElement = document.getElementById(`cell-${player.position}`);
+      const newPositionElement = document.getElementById(`cell-${newPosition}`);
+      oldPositionElement.removeChild(player.element);
+      newPositionElement.appendChild(player.element);
+      player.position = newPosition;
+      savePlayerPositions();
+    }
+
+    loadPlayerPositions();
+    updatePlayerPositions();
+
+    document.getElementById("rollDice1").addEventListener("click", () => movePlayer(players[0], players[0].position + 1));
+    document.getElementById("rollDice2").addEventListener("click", () => movePlayer(players[1], players[1].position + 1));
+    document.getElementById("rollDice3").addEventListener("click", () => movePlayer(players[2], players[2].position + 1));
+    document.getElementById("rollDice4").addEventListener("click", () => movePlayer(players[3], players[3].position + 1));
+
+    document.getElementById("resetGame").addEventListener("click", () => {
+      players.forEach(player => {
+        movePlayer(player, 1);
+      });
+      resetPlayerHealth();
+      localStorage.clear();
+      loadPlayerPositions();
+      loadPlayerHealths();
+    });
+
+
+    document.getElementById("goBack").addEventListener("click", () => {
+      window.history.back();
+    });
+
+    document.getElementById("goToRollingDice").addEventListener("click", () => {
+      location.href = 'rolling_dice.html';
+    });
+    
+    document.getElementById("goToNewPage").addEventListener("click", () => {
+      location.href = 'new_page.html';
+    });
+
+    document.querySelector("#word").addEventListener("click", () => {
+    location.href = "thousandresults.html";
+  });
+
+  </script>
+</body>
+</html>

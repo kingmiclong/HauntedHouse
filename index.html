@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Storytelling RPG Game tech-assist?</title>
+  <style>
+    button {
+      display: block;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Storytelling RPG Game tech-assist?</h1>
+
+  <button id="rectangularMonopoly">Game Map</button>
+  <button id="rollingDice">Rolling Dice</button>
+  <button id="storywritting">Story Writting</button>
+  <button id="word">Word</button> 
+
+  <script>
+    document.getElementById("rollingDice").onclick = function() {
+      location.href = "rolling_dice.html";
+    };
+
+    document.getElementById("rectangularMonopoly").onclick = function() {
+      location.href = "rectangular_monopoly.html";
+    };
+
+    document.getElementById("storywritting").onclick = function() {
+      location.href = "new_page.html";
+    };
+
+    document.querySelector("#word").addEventListener("click", () => {
+    location.href = "thousandresults.html";
+    });
+
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>
